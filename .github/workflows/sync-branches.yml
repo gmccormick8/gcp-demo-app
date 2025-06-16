@@ -15,23 +15,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.SYNC_PAT }}
 
-      - name: Configure Git
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
-      - name: Sync staging from prod
-        run: |
-          git checkout staging
-          git pull
-          git merge origin/prod --no-edit
-          git push origin staging
-
-      - name: Sync dev from staging
-        run: |
-          git checkout dev
-          git pull
-          git merge origin/staging --no-edit
-          git push origin dev
+      - name: Sync branches
+        uses: TreTuna/sync-branches@1.4.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          FROM_BRANCH: prod
+          TO_BRANCH: staging
