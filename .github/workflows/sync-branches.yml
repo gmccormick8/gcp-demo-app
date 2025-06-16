@@ -9,6 +9,10 @@ jobs:
   sync-branches:
     name: Sync branches
     runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+      contents: read
     
     steps:
       - name: Checkout repository
