@@ -3,27 +3,18 @@ name: Sync Branches
 on:
   # Trigger when changes are pushed to prod
   push:
-    branches: [ "prod" ]
+    branches: 
+      - prod
 
 jobs:
   sync-branches:
     name: Sync branches
     runs-on: ubuntu-latest
-
-    permissions:
-      issues: write
-      pull-requests: write
-      contents: read
     
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - uses: connor-baer/action-sync-branch@main
         with:
-          fetch-depth: 0
-
-      - name: Create Sync PR
-        uses: sudoStatus200/create-sync-pr@0.3.1
-        with:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          SOURCE_BRANCH: prod
-          TARGET_BRANCH: staging
+          branch: dev
+          token: ${{ secrets.GITHUB_TOKEN }}
