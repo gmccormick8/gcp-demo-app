@@ -21,9 +21,9 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Sync branches
-        uses: TreTuna/sync-branches@1.4.0
+      - name: Create Sync PR
+        uses: sudoStatus200/create-sync-pr@0.3.1
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-          FROM_BRANCH: prod
-          TO_BRANCH: staging
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          SOURCE_BRANCH: "prod"
+          TARGET_BRANCH: "staging, dev"
