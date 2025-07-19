@@ -19,7 +19,7 @@ service:
 
 autoscaling:
   enabled: true
-  minReplicas: 1
+  minReplicas: 2
   maxReplicas: 5
   cpuUtilization: 75
   memoryUtilization: 75
