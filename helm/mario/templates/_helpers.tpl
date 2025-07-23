@@ -3,5 +3,5 @@
 {{- end }}
 
 {{- define "mario.fullname" -}}
-{{ printf "%s-%s" .Release.Name .Chart.Name }}
+{{ .Release.Name }}
 {{- end }}
