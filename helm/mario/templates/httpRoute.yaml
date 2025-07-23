@@ -1,19 +1,20 @@
 kind: HTTPRoute
 apiVersion: gateway.networking.k8s.io/v1beta1
 metadata:
-  name: mario-http-route
-  namespace: mario
+  name: {{ include "mario.fullname" . }}-route
+  namespace: {{ .Release.Namespace }}
   labels:
-    app: mario-service
-    gateway: multi-cluster-gateway
+    app: {{ include "mario.fullname" . }}-service
+    gateway: multi-cluster-gateway 
+    app.kubernetes.io/managed-by: Helm
 spec:
   parentRefs:
     - kind: Gateway
-      name: mario-external-gateway
+      name: {{ include "mario.fullname" . }}-gateway
       namespace: mario
   rules:
     - backendRefs:
         - group: net.gke.io
           kind: ServiceImport
-          name: mario-service
+          name: {{ include "mario.fullname" . }}-service
           port: 80

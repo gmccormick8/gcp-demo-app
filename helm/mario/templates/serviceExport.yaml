@@ -1,0 +1,7 @@
+apiVersion: net.gke.io/v1
+kind: ServiceExport
+metadata:
+  name: {{ include "mario.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/managed-by: Helm

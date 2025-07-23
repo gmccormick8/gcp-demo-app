@@ -1,21 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mario
-  namespace: mario
+  name: {{ include "mario.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
-    app: mario
+    app.kubernetes.io/name: {{ include "mario.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: Helm
 spec:
   selector:
     matchLabels:
-      app: mario
+      app.kubernetes.io/name: {{ include "mario.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: mario
+        app.kubernetes.io/name: {{ include "mario.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       containers:
-        - name: mario
+        - name: {{ .Chart.Name }}
           image: "{{.Values.image.repository}}:{{.Values.image.tag}}"
           imagePullPolicy: {{.Values.image.pullPolicy}}
           ports:

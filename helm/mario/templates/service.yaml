@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "mario.fullname" . }}-service
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    networking.gke.io/max-rate-per-endpoint: "20"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app.kubernetes.io/name: {{ include "mario.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
