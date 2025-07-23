@@ -11,7 +11,7 @@ spec:
   parentRefs:
     - kind: Gateway
       name: {{ include "mario.fullname" . }}-gateway
-      namespace: mario
+      namespace: {{ .Release.Namespace }}
   rules:
     - backendRefs:
         - group: net.gke.io
