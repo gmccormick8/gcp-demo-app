@@ -2,8 +2,10 @@
 kind: Gateway
 apiVersion: gateway.networking.k8s.io/v1beta1
 metadata:
-  name: mario-external-gateway
-  namespace: mario
+  name: {{ include "mario.fullname" . }}-gateway
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/managed-by: Helm
 spec:
   gatewayClassName: gke-l7-global-external-managed-mc
   listeners:
